@@ -1,0 +1,42 @@
+;; Add repository
+(require `package)
+(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) 
+
+;; Load custom theme
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'monokai t)
+
+;; Load custom lisp scripts
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+
+;; Show line number
+(global-linum-mode t)
+
+;; Disable bars
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; Don't show startup screen
+(setq inhibit-startup-screen t)
+
+;; Maximize on startup
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; Saving config
+(setq backup-directory-alist
+`((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+`((".*" ,temporary-file-directory t)))
+(setq delete-by-moving-to-trash t)
+(desktop-save-mode 1)
+
+;; Default directories
+(setq default-directory (concat (getenv "HOME") "/"))
+
+;; Shell settings
+(autoload 'powershell "powershell" "Run powershell as a shell within emacs." t)
+
+;; Dire settings
+(setq dired-dwim-target t)
+
