@@ -34,9 +34,16 @@
 ;; Default directories
 (setq default-directory (concat (getenv "HOME") "/"))
 
+;; Scroll settings
+(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   1)) )
+(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 1)) )
+
 ;; Shell settings
 (autoload 'powershell "powershell" "Run powershell as a shell within emacs." t)
 
 ;; Dire settings
 (setq dired-dwim-target t)
 
+;; C++ settings
+(setq c-default-style "linux"
+      c-basic-offset 4)
