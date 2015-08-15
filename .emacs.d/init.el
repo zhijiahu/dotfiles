@@ -1,8 +1,12 @@
 ;; Add repository
-(require `package)
-(add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/")) 
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/")
+   t)
+  (package-initialize))
 
-;; Load custom theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'monokai t)
 
