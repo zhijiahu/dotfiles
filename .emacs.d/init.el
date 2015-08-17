@@ -56,3 +56,6 @@
 ;; Auto complete
 (require 'auto-complete-config)
 (ac-config-default)
+
+;; Use ido mode
+(ido-mode 1)
