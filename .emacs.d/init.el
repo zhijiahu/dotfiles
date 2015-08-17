@@ -7,6 +7,7 @@
    t)
   (package-initialize))
 
+;; Load theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'monokai t)
 
@@ -51,3 +52,7 @@
 ;; C++ settings
 (setq c-default-style "linux"
       c-basic-offset 4)
+
+;; Auto complete
+(require 'auto-complete-config)
+(ac-config-default)
