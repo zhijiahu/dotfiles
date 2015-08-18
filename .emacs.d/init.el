@@ -40,8 +40,8 @@
 (setq default-directory (concat (getenv "HOME") "/"))
 
 ;; Scroll settings
-(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   1)) )
-(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 1)) )
+(global-set-key "\M-n"  (lambda () (interactive) (scroll-up   4)) )
+(global-set-key "\M-p"  (lambda () (interactive) (scroll-down 4)) )
 
 ;; Shell settings
 (autoload 'powershell "powershell" "Run powershell as a shell within emacs." t)
@@ -59,3 +59,10 @@
 
 ;; Use ido mode
 (ido-mode 1)
+
+;; Use sr speed bar
+(require 'sr-speedbar)
+(global-set-key (kbd "C-M-m") 'sr-speedbar-toggle)
+
+;; Insert spaces for tabs
+(setq-default indent-tabs-mode nil)
