@@ -66,3 +66,33 @@
 
 ;; Insert spaces for tabs
 (setq-default indent-tabs-mode nil)
+
+;; Python settings
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq-default indent-tabs-mode nil)
+            (setq-default tab-width 4)
+            (setq-default python-indent 4)))
+
+(defun add-py-debug ()  
+      "add debug code and move line down"  
+    (interactive)  
+    (move-beginning-of-line 1)  
+    (insert "import pdb; pdb.set_trace();\n"))  
+
+(local-set-key (kbd "<f9>") 'add-py-debug)
+
+(defun remove-py-debug ()  
+  "remove py debug code, if found"  
+  (interactive)  
+  (let ((x (line-number-at-pos))  
+    (cur (point)))  
+    (search-forward-regexp "^[ ]*import pdb; pdb.set_trace();")  
+    (if (= x (line-number-at-pos))  
+    (let ()  
+      (move-beginning-of-line 1)  
+      (kill-line 1)  
+      (move-beginning-of-line 1))  
+      (goto-char cur))))  
+
+(local-set-key (kbd "M-<f9>") 'remove-py-debug)
