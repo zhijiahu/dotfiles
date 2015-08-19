@@ -60,10 +60,6 @@
 ;; Use ido mode
 (ido-mode 1)
 
-;; Use sr speed bar
-(require 'sr-speedbar)
-(global-set-key (kbd "C-M-m") 'sr-speedbar-toggle)
-
 ;; Insert spaces for tabs
 (setq-default indent-tabs-mode nil)
 
