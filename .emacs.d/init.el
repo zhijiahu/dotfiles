@@ -59,6 +59,7 @@
 
 ;; Use ido mode
 (ido-mode 1)
+(global-set-key (kbd "C-M-m") 'ido-imenu-anywhere)
 
 ;; Insert spaces for tabs
 (setq-default indent-tabs-mode nil)
