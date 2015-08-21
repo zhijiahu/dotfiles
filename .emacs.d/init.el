@@ -59,12 +59,13 @@
 
 ;; Use ido mode
 (ido-mode 1)
+(global-set-key (kbd "C-x C-i") 'ido-imenu-anywhere)
 
 ;; Insert spaces for tabs
 (setq-default indent-tabs-mode nil)
 
 ;; Mouse
-(setq-default make-pointer-invisible "banish")
+(mouse-avoidance-mode 'banish)
 
 ;; Python settings
 (add-hook 'python-mode-hook
