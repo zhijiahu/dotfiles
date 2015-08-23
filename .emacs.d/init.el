@@ -61,8 +61,16 @@
 (ido-mode 1)
 (global-set-key (kbd "C-x C-i") 'ido-imenu-anywhere)
 
+
+;; Magit rules!
+(global-set-key (kbd "C-x g") 'magit-status)
+
 ;; Insert spaces for tabs
 (setq-default indent-tabs-mode nil)
+
+;; Search with regex by default
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "\C-r") 'isearch-backward-regexp)
 
 ;; Mouse
 (mouse-avoidance-mode 'banish)
@@ -96,3 +104,12 @@
       (goto-char cur))))  
 
 (local-set-key (kbd "M-<f9>") 'remove-py-debug)
+
+;; Super + uppercase letter signifies a buffer/file
+(global-set-key (kbd "C-s-s")                       ;; scratch
+                (lambda()(interactive)(switch-to-buffer "*scratch*")))
+(global-set-key (kbd "C-s-e")                       ;; .emacs
+                (lambda()(interactive)(find-file "~/.emacs.d/init.el")))
+
+
+(global-set-key (kbd "C-s-o") 'anything-find-files)
