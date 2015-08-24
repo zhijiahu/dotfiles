@@ -59,6 +59,9 @@
 
 ;; Use ido mode
 (ido-mode 1)
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+
 (global-set-key (kbd "C-x C-i") 'ido-imenu-anywhere)
 
 
@@ -106,10 +109,41 @@
 (local-set-key (kbd "M-<f9>") 'remove-py-debug)
 
 ;; Super + uppercase letter signifies a buffer/file
-(global-set-key (kbd "C-s-s")                       ;; scratch
+(global-set-key (kbd "C-c s")                       ;; scratch
                 (lambda()(interactive)(switch-to-buffer "*scratch*")))
-(global-set-key (kbd "C-s-e")                       ;; .emacs
+(global-set-key (kbd "C-c e")                       ;; .emacs
                 (lambda()(interactive)(find-file "~/.emacs.d/init.el")))
 
+;; Perforce settings
+(require 'p4)
 
-(global-set-key (kbd "C-s-o") 'anything-find-files)
+;; Revert buffer
+(global-auto-revert-mode 1)
+
+;; Show buffer list
+(global-set-key (kbd "C-M-o") 'helm-buffers-list)
+
+;; instant recursive grep on a directory with helm
+(defun instant-rgrep-using-helm ()
+  "Recursive grep in a directory."
+  (interactive)
+  (let ((helm-after-initialize-hook #'helm-follow-mode))
+    (helm-do-grep)))
+
+
+;; instant search across all buffers with helm
+(defun instant-search-using-helm ()
+  "Multi-occur in all buffers backed by files."
+  (interactive)
+  (let ((helm-after-initialize-hook #'helm-follow-mode))
+    (helm-multi-occur
+     (delq nil
+           (mapcar (lambda (b)
+                     (when (buffer-file-name b) (buffer-name b)))
+                   (buffer-list))))))
+
+;; set keybindings
+(global-set-key (kbd "C-M-s") 'instant-search-using-helm)
+(global-set-key (kbd "C-M-S-s") 'helm-resume)
+(global-set-key (kbd "C-M-g") 'instant-rgrep-using-helm)
+
