@@ -73,7 +73,7 @@
 (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
 
 ;; Mouse
-(mouse-avoidance-mode 'banish)
+(mouse-avoidance-mode 'animate)
 
 ;; Python settings
 (add-hook 'python-mode-hook
@@ -123,4 +123,13 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 ;; Projectile settings
+(setq projectile-indexing-method 'alien)
+(setq projectile-enable-caching t)
 (projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+
+;; Use MingGW libraries if running on Windows
+(if (eq system-type 'windows-nt)
+    (setenv "PATH"
+            (concat "C:\\MinGW\\msys\\1.0\\bin;" (getenv "PATH"))))

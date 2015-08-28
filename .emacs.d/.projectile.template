@@ -1,0 +1,13 @@
+-*.Log
+-*.log
+-*.exe
+-*.dll
+-*.exp
+-*.pdb
+-*.pdb_index
+-*.idb
+-*.ilk
+-*.forge
+-*.forge_stripmanifest.xml
+-*.pyc
+-*.pyd
