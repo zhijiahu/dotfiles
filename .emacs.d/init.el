@@ -133,3 +133,6 @@
 (if (eq system-type 'windows-nt)
     (setenv "PATH"
             (concat "C:\\MinGW\\msys\\1.0\\bin;" (getenv "PATH"))))
+
+;; Toogle header/implementation file
+(global-set-key (kbd "C-c o") 'ff-find-other-file)
