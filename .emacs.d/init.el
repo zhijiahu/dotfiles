@@ -9,8 +9,8 @@
 
 (defun ensure-package-installed (&rest packages)
   "Assure every package is installed, ask for installation if it’s not.
-
-Return a list of installed packages or nil for every skipped package."
+   
+   Return a list of installed packages or nil for every skipped package."
   (mapcar
    (lambda (package)
      ;; (package-installed-p 'evil)
@@ -29,7 +29,7 @@ Return a list of installed packages or nil for every skipped package."
 (ensure-package-installed 'monokai-theme
                           'magit
                           'helm-projectile
-                          'js2-mode,
+                          'js2-mode
                           'web-beautify)
 
 ;; activate installed packages
@@ -63,6 +63,9 @@ Return a list of installed packages or nil for every skipped package."
 `((".*" ,temporary-file-directory t)))
 (setq delete-by-moving-to-trash t)
 (desktop-save-mode 1)
+
+;; Confirm before quiting
+(setq confirm-kill-emacs 'y-or-n-p)
 
 ;; Default directories
 (setq default-directory (concat (getenv "HOME") "/"))
@@ -114,16 +117,16 @@ Return a list of installed packages or nil for every skipped package."
       "add debug code and move line down"  
     (interactive)  
     (move-beginning-of-line 1)  
-    (insert "import pdb; pdb.set_trace();\n"))  
+    (insert "import ipdb; ipdb.set_trace()\n")
 
-(local-set-key (kbd "<f9>") 'add-py-debug)
+(global-set-key (kbd "<f9>") 'add-py-debug)
 
 (defun remove-py-debug ()  
   "remove py debug code, if found"  
   (interactive)  
   (let ((x (line-number-at-pos))  
     (cur (point)))  
-    (search-forward-regexp "^[ ]*import pdb; pdb.set_trace();")  
+    (search-forward-regexp "^[ ]*import ipdb; ipdb.set_trace();")  
     (if (= x (line-number-at-pos))  
     (let ()  
       (move-beginning-of-line 1)  
@@ -131,7 +134,7 @@ Return a list of installed packages or nil for every skipped package."
       (move-beginning-of-line 1))  
       (goto-char cur))))  
 
-(local-set-key (kbd "M-<f9>") 'remove-py-debug)
+(global-set-key (kbd "M-<f9>") 'remove-py-debug)
 
 ;; Super + uppercase letter signifies a buffer/file
 (global-set-key (kbd "C-c s")                       ;; scratch
@@ -167,3 +170,19 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; js2 settings
 (js2-imenu-extras-mode)
+
+;; Web beautify :)
+(eval-after-load 'js2-mode
+  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
+(eval-after-load 'js
+  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
+
+(eval-after-load 'json-mode
+  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+
+(eval-after-load 'sgml-mode
+  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+
+(eval-after-load 'css-mode
+  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
