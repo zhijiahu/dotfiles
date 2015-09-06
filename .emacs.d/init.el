@@ -30,7 +30,8 @@
                           'magit
                           'helm-projectile
                           'js2-mode
-                          'web-beautify)
+                          'web-beautify
+			  'auto-complete)
 
 ;; activate installed packages
 (package-initialize)
@@ -117,7 +118,7 @@
       "add debug code and move line down"  
     (interactive)  
     (move-beginning-of-line 1)  
-    (insert "import ipdb; ipdb.set_trace()\n")
+    (insert "import ipdb; ipdb.set_trace()\n"))
 
 (global-set-key (kbd "<f9>") 'add-py-debug)
 
