@@ -187,3 +187,14 @@
 
 (eval-after-load 'css-mode
   '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+
+;; Java settings
+(add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp/")
+(autoload 'jde-mode "jde" "JDE mode" t)
+(setq auto-mode-alist
+      (append '(("\\.java\\'" . jde-mode)) auto-mode-alist))
+(setq jde-help-remote-file-exists-function '("beanshell"))
+
+;; Compile settings
+(autoload 'smart-compile "smart-compile" "Compiles file based on type." t)
+(global-set-key (kbd "C-c c") 'smart-compile)
