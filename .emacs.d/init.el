@@ -31,7 +31,9 @@
                           'helm-projectile
                           'js2-mode
                           'web-beautify
-			  'auto-complete)
+                          'auto-complete
+                          'yasnippet
+                          'w3m)
 
 ;; activate installed packages
 (package-initialize)
@@ -41,7 +43,9 @@
 (load-theme 'monokai t)
 
 ;; Load custom lisp scripts
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(let ((default-directory "~/.emacs.d/lisp/"))
+  (normal-top-level-add-to-load-path '("."))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;; Show line number
 (global-linum-mode t)
@@ -151,8 +155,10 @@
 
 ;; Helm settings
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-x m") 'helm-imenu)
+(global-set-key (kbd "C-x m") 'helm-semantic-or-imenu)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
+(setq helm-semantic-fuzzy-match t
+      helm-imenu-fuzzy-match    t)
 
 ;; Projectile settings
 (setq projectile-indexing-method 'alien)
@@ -198,3 +204,24 @@
 ;; Compile settings
 (autoload 'smart-compile "smart-compile" "Compiles file based on type." t)
 (global-set-key (kbd "C-c c") 'smart-compile)
+
+(setq c-default-style "bsd"
+  c-basic-offset 4)
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;; ERC settings (IRC)
+(require 'erc)
+(erc-autojoin-mode t)
+(setq erc-autojoin-channels-alist
+      '((".*\\.freenode.net" "#emacs" "#python")))
+(setq erc-nick "aijihz") 
+(erc-track-mode t)
+(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
+                                 "324" "329" "332" "333" "353" "477"))
+(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
+
+;; ;; W3M web browsing settings
+;; (setq browse-url-browser-function 'w3m-browse-url)
+;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
