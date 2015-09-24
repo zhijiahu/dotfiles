@@ -31,9 +31,7 @@
                           'helm-projectile
                           'js2-mode
                           'web-beautify
-                          'auto-complete
-                          'yasnippet
-                          'w3m)
+                          'auto-complete)
 
 ;; activate installed packages
 (package-initialize)
@@ -208,14 +206,12 @@
 (setq c-default-style "bsd"
   c-basic-offset 4)
 
-(require 'yasnippet)
-(yas-global-mode 1)
-
 ;; ERC settings (IRC)
 (require 'erc)
 (erc-autojoin-mode t)
 (setq erc-autojoin-channels-alist
-      '((".*\\.freenode.net" "#emacs" "#python")))
+      '((".*\\.freenode.net" "#emacs" "#python")
+        (".*\\.snoonet.org" "#games")))
 (setq erc-nick "aijihz") 
 (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                  "324" "329" "332" "333" "353" "477"))
