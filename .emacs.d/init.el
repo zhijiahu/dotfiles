@@ -201,7 +201,6 @@
 
 ;; Compile settings
 (autoload 'smart-compile "smart-compile" "Compiles file based on type." t)
-(global-set-key (kbd "C-c c") 'smart-compile)
 
 (setq c-default-style "bsd"
   c-basic-offset 4)
@@ -209,14 +208,11 @@
 ;; ERC settings (IRC)
 (require 'erc)
 (erc-autojoin-mode t)
+(erc-track-mode 1)
 (setq erc-autojoin-channels-alist
-      '((".*\\.freenode.net" "#emacs" "#python")
-        (".*\\.snoonet.org" "#games")))
+      '((".*\\.freenode.net" "#emacs" "#python" "##networking")))
 (setq erc-nick "aijihz") 
 (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
                                  "324" "329" "332" "333" "353" "477"))
 (setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
 
-;; ;; W3M web browsing settings
-;; (setq browse-url-browser-function 'w3m-browse-url)
-;; (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
