@@ -31,7 +31,9 @@
                           'helm-projectile
                           'js2-mode
                           'web-beautify
-                          'auto-complete)
+                          'auto-complete
+                          'graphviz-dot-mode
+                          'plantuml-mode)
 
 ;; activate installed packages
 (package-initialize)
@@ -226,3 +228,12 @@
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+;; active Org-babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '(;; other Babel languages
+   (plantuml . t)))
+
+(setq org-plantuml-jar-path
+      (expand-file-name "~/.emacs.d/plantuml.jar"))
