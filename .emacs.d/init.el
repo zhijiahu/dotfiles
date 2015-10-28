@@ -1,3 +1,5 @@
+(server-start)
+
 ;; Add repository
 (when (>= emacs-major-version 24)
   (require 'package)
