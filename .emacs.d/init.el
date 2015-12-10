@@ -35,7 +35,8 @@
                           'web-beautify
                           'auto-complete
                           'graphviz-dot-mode
-                          'plantuml-mode)
+                          'plantuml-mode
+                          'anzu)
 
 ;; activate installed packages
 (package-initialize)
@@ -83,6 +84,7 @@
 
 ;; Shell settings
 (autoload 'powershell "powershell" "Run powershell as a shell within emacs." t)
+(add-to-list 'auto-mode-alist '("\\.ps1\\'" . powershell-mode))
 
 ;; Dire settings
 (setq dired-dwim-target t)
@@ -246,3 +248,7 @@
             ;; Default indentation is usually 2 spaces, changing to 4.
             (set (make-local-variable 'sgml-basic-offset) 4)))
 
+;; Anzu mode
+(global-anzu-mode +1)
+(global-set-key (kbd "M-%") 'anzu-query-replace)
+(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
