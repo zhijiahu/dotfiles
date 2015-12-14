@@ -34,8 +34,6 @@
                           'js2-mode
                           'web-beautify
                           'auto-complete
-                          'graphviz-dot-mode
-                          'plantuml-mode
                           'anzu)
 
 ;; activate installed packages
@@ -198,16 +196,6 @@
 (eval-after-load 'css-mode
   '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
 
-;; Java settings
-(add-to-list 'load-path "~/.emacs.d/jdee-2.4.1/lisp/")
-(autoload 'jde-mode "jde" "JDE mode" t)
-(setq auto-mode-alist
-      (append '(("\\.java\\'" . jde-mode)) auto-mode-alist))
-(setq jde-help-remote-file-exists-function '("beanshell"))
-
-;; Compile settings
-(autoload 'smart-compile "smart-compile" "Compiles file based on type." t)
-
 (setq c-default-style "bsd"
   c-basic-offset 4)
 
@@ -233,15 +221,6 @@
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 
-;; active Org-babel languages
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '(;; other Babel languages
-   (plantuml . t)))
-
-(setq org-plantuml-jar-path
-      (expand-file-name "~/.emacs.d/plantuml.jar"))
-
 ;; Html settings
 (add-hook 'html-mode-hook
           (lambda ()
@@ -252,3 +231,21 @@
 (global-anzu-mode +1)
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+
+;; Irony mode (for C++)
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+(setq w32-pipe-read-delay 0)
+;; replace the `completion-at-point' and `complete-symbol' bindings in
+;; irony-mode's buffers by irony-mode's function
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+;; Web browsing
+(global-set-key (kbd "C-c o") 'browse-url-at-point)
