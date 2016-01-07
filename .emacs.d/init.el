@@ -34,7 +34,8 @@
                           'js2-mode
                           'web-beautify
                           'auto-complete
-                          'anzu)
+                          'anzu
+                          'omnisharp)
 
 ;; activate installed packages
 (package-initialize)
@@ -86,6 +87,8 @@
 
 ;; Dire settings
 (setq dired-dwim-target t)
+(defun w32-browser (doc) (w32-shell-execute 1 doc))
+(eval-after-load "dired" '(define-key dired-mode-map [f3] (lambda () (interactive) (w32-browser (dired-replace-in-string "/" "\\" (dired-get-filename))))))
 
 ;; C++ settings
 (setq c-default-style "linux"
@@ -118,7 +121,8 @@
           (lambda ()
             (setq-default indent-tabs-mode nil)
             (setq-default tab-width 4)
-            (setq-default python-indent 4)))
+            (setq-default python-indent 4)
+            (setq-default fill-column 120)))
 
 (defun add-py-debug ()  
       "add debug code and move line down"  
@@ -248,4 +252,4 @@
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; Web browsing
-(global-set-key (kbd "C-c o") 'browse-url-at-point)
+(global-set-key (kbd "C-x C-o") 'browse-url-at-point)
