@@ -37,7 +37,8 @@
                           'anzu
                           'omnisharp
                           'py-autopep8
-                          'flycheck)
+                          'flycheck
+                          'smex)
 
 ;; activate installed packages
 (package-initialize)
