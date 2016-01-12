@@ -35,7 +35,9 @@
                           'web-beautify
                           'auto-complete
                           'anzu
-                          'omnisharp)
+                          'omnisharp
+                          'py-autopep8
+                          'flycheck)
 
 ;; activate installed packages
 (package-initialize)
@@ -116,13 +118,26 @@
 ;; Mouse
 (mouse-avoidance-mode 'animate)
 
+;; Flycheck
+(require 'flycheck)
+(global-flycheck-mode)
+
+;; Smex
+(require 'smex)
+(global-set-key (kbd "M-x") 'smex)
+
 ;; Python settings
+
+;; Need to install external autopep8 tool
+(require 'py-autopep8)
+
 (add-hook 'python-mode-hook
           (lambda ()
+            'py-autopep8-enable-on-save
             (setq-default indent-tabs-mode nil)
             (setq-default tab-width 4)
-            (setq-default python-indent 4)
-            (setq-default fill-column 120)))
+            (setq-default python-indent 4)))
+(setq py-autopep8-options '("--max-line-length=120"))
 
 (defun add-py-debug ()  
       "add debug code and move line down"  
@@ -253,3 +268,4 @@
 
 ;; Web browsing
 (global-set-key (kbd "C-x C-o") 'browse-url-at-point)
+
