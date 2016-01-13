@@ -270,3 +270,11 @@
 ;; Web browsing
 (global-set-key (kbd "C-x C-o") 'browse-url-at-point)
 
+
+;; Kill all other buffers
+(defun kill-other-buffers ()
+  "Kill all other buffers."
+  (interactive)
+  (mapc 'kill-buffer
+        (delq (current-buffer)
+              (remove-if-not '(lambda (x) (or (buffer-file-name x) (eq 'dired-mode (buffer-local-value 'major-mode x)))) (buffer-list)))))
