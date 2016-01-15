@@ -52,9 +52,6 @@
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; Show line number
-(global-linum-mode t)
-
 ;; Disable bars
 (tool-bar-mode -1)
 (menu-bar-mode -1)
