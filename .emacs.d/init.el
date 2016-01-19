@@ -38,7 +38,8 @@
                           'omnisharp
                           'py-autopep8
                           'flycheck
-                          'smex)
+                          'smex
+                          'elpy)
 
 ;; activate installed packages
 (package-initialize)
@@ -129,13 +130,16 @@
 ;; Need to install external autopep8 tool
 (require 'py-autopep8)
 
+(elpy-enable)
+(add-hook 'python-mode-hook (highlight-indentation-mode 0))
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+(setq py-autopep8-options '("--max-line-length=120"))
+
 (add-hook 'python-mode-hook
           (lambda ()
-            'py-autopep8-enable-on-save
             (setq-default indent-tabs-mode nil)
             (setq-default tab-width 4)
             (setq-default python-indent 4)))
-(setq py-autopep8-options '("--max-line-length=120"))
 
 (defun add-py-debug ()  
       "add debug code and move line down"  
