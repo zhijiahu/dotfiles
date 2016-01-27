@@ -58,6 +58,9 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; Show column numbers
+(setq column-number-mode t)
+
 ;; Don't show startup screen
 (setq inhibit-startup-screen t)
 
@@ -224,6 +227,7 @@
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
+(setq projectile-enable-idle-timer t)
 
 ;; Use MingGW libraries if running on Windows
 (if (eq system-type 'windows-nt)
