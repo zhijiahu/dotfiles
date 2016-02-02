@@ -86,7 +86,7 @@
 (global-set-key "\M-p"  (lambda () (interactive) (scroll-down 4)) )
 
 ;; Shell settings
-(autoload 'powershell "powershell" "Run powershell as a shell within emacs." t)
+(require 'powershell-mode)
 (add-to-list 'auto-mode-alist '("\\.ps1\\'" . powershell-mode))
 
 ;; Dire settings
