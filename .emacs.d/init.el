@@ -39,7 +39,8 @@
                           'py-autopep8
                           'flycheck
                           'smex
-                          'elpy)
+                          'elpy
+                          'swift-mode)
 
 ;; activate installed packages
 (package-initialize)
@@ -318,3 +319,7 @@
   (mapc 'kill-buffer
         (delq (current-buffer)
               (remove-if-not '(lambda (x) (or (buffer-file-name x) (eq 'dired-mode (buffer-local-value 'major-mode x)))) (buffer-list)))))
+
+;; Swift
+(add-to-list 'flycheck-checkers 'swift)
+
