@@ -18,9 +18,7 @@
      ;; (package-installed-p 'evil)
      (if (package-installed-p package)
          nil
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-           (package-install package)
-         package)))
+       (package-install package)))
    packages))
 
 ;; make sure to have downloaded archive description.
@@ -35,11 +33,8 @@
                           'web-beautify
                           'auto-complete
                           'anzu
-                          'omnisharp
-                          'py-autopep8
                           'flycheck
-                          'smex
-                          'elpy)
+                          'smex)
 
 ;; activate installed packages
 (package-initialize)
@@ -123,56 +118,19 @@
 ;; Flycheck
 (require 'flycheck)
 (global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(mode-enabled save))
 
 ;; Smex
 (require 'smex)
 (global-set-key (kbd "M-x") 'smex)
 
-;; Python settings
+;; Show limit line
+(require 'whitespace)
+(setq whitespace-line-column 120) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+(add-hook 'prog-mode-hook 'whitespace-mode)
 
-;; Configure flymake for Python
-(when (load "flymake" t)
-  (defun flymake-pylint-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list "epylint" (list local-file))))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pylint-init)))
-
-;; Set as a minor mode for Python
-(add-hook 'python-mode-hook '(lambda () (flymake-mode)))
-
-;; Configure to wait a bit longer after edits before starting
-(setq-default flymake-no-changes-timeout '3)
-
-;; Keymaps to navigate to the errors
-(add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-cn" 'flymake-goto-next-error)))
-(add-hook 'python-mode-hook '(lambda () (define-key python-mode-map "\C-cp" 'flymake-goto-prev-error)))
-
-;; To avoid having to mouse hover for the error message, these functions make flymake error messages
-;; appear in the minibuffer
-(defun show-fly-err-at-point ()
-  "If the cursor is sitting on a flymake error, display the message in the minibuffer"
-  (require 'cl)
-  (interactive)
-  (let ((line-no (line-number-at-pos)))
-    (dolist (elem flymake-err-info)
-      (if (eq (car elem) line-no)
-      (let ((err (car (second elem))))
-        (message "%s" (flymake-ler-text err)))))))
-
-(add-hook 'post-command-hook 'show-fly-err-at-point)
-
-;; Need to install external autopep8 tool
-(require 'py-autopep8)
-
-(elpy-enable)
-(add-hook 'python-mode-hook (highlight-indentation-mode 0))
-(setq py-autopep8-options '("--max-line-length=120"))
-
+;; Python
 (add-hook 'python-mode-hook
           (lambda ()
             (setq-default indent-tabs-mode nil)
@@ -210,9 +168,6 @@
 
 ;; Perforce settings
 (require 'p4)
-
-;; Revert buffer
-(global-auto-revert-mode 1)
 
 ;; Helm settings
 (global-set-key (kbd "C-x b") 'helm-buffers-list)
@@ -310,7 +265,6 @@
 ;; Web browsing
 (global-set-key (kbd "C-x C-o") 'browse-url-at-point)
 
-
 ;; Kill all other buffers
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -318,3 +272,6 @@
   (mapc 'kill-buffer
         (delq (current-buffer)
               (remove-if-not '(lambda (x) (or (buffer-file-name x) (eq 'dired-mode (buffer-local-value 'major-mode x)))) (buffer-list)))))
+
+;; Grep
+(setq grep-command "grep -nH -r ")
