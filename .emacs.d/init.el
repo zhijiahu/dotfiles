@@ -34,7 +34,8 @@
                           'auto-complete
                           'anzu
                           'flycheck
-                          'smex)
+                          'smex
+                          'rust-mode)
 
 ;; activate installed packages
 (package-initialize)
