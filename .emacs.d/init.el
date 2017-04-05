@@ -35,7 +35,9 @@
                           'anzu
                           'flycheck
                           'smex
-                          'rust-mode)
+                          'rust-mode
+                          'arduino-mode
+                          'web-mode)
 
 ;; activate installed packages
 (package-initialize)
@@ -276,3 +278,10 @@
 
 ;; Grep
 (setq grep-command "grep -nH -r ")
+
+;; Arduino
+(arduino-mode 1)
+
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
