@@ -37,7 +37,8 @@
                           'smex
                           'rust-mode
                           'arduino-mode
-                          'web-mode)
+                          'web-mode
+                          'yaml-mode)
 
 ;; activate installed packages
 (package-initialize)
