@@ -280,9 +280,7 @@
 ;; Grep
 (setq grep-command "grep -nH -r ")
 
-;; Arduino
-(arduino-mode 1)
-
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+
