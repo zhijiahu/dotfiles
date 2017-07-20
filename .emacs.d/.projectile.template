@@ -11,3 +11,6 @@
 -*.forge_stripmanifest.xml
 -*.pyc
 -*.pyd
+-/.tox
+-/venv
+-/tmp
