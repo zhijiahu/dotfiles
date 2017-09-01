@@ -145,7 +145,7 @@
       "add debug code and move line down"  
     (interactive)  
     (move-beginning-of-line 1)  
-    (insert "import ipdb; ipdb.set_trace()\n"))
+    (insert "import ipdb; ipdb.set_trace(context=21)\n"))
 
 (global-set-key (kbd "<f9>") 'add-py-debug)
 
