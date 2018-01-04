@@ -38,7 +38,8 @@
                           'rust-mode
                           'arduino-mode
                           'web-mode
-                          'yaml-mode)
+                          'yaml-mode
+                          'go-mode)
 
 ;; activate installed packages
 (package-initialize)
@@ -145,7 +146,7 @@
       "add debug code and move line down"  
     (interactive)  
     (move-beginning-of-line 1)  
-    (insert "import ipdb; ipdb.set_trace(context=21)\n"))
+    (insert "import ipdb; ipdb.set_trace()\n"))
 
 (global-set-key (kbd "<f9>") 'add-py-debug)
 
@@ -283,4 +284,3 @@
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
-
