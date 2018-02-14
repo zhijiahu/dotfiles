@@ -284,6 +284,7 @@
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+<<<<<<< HEAD
 
 ;; Ruby mode
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
