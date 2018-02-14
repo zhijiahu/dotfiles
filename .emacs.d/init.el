@@ -38,7 +38,8 @@
                           'rust-mode
                           'arduino-mode
                           'web-mode
-                          'yaml-mode)
+                          'yaml-mode
+                          'ruby-mode)
 
 ;; activate installed packages
 (package-initialize)
@@ -284,3 +285,11 @@
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 
+;; Ruby mode
+(autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+
+;; Go mode
+(require 'go-mode)
