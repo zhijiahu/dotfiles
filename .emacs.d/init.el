@@ -39,7 +39,9 @@
                           'arduino-mode
                           'web-mode
                           'yaml-mode
-                          'ruby-mode)
+                          'ruby-mode
+                          'lua-mode
+                          'markdown-mode)
 
 ;; activate installed packages
 (package-initialize)
@@ -131,8 +133,7 @@
 
 ;; Show limit line
 (require 'whitespace)
-(setq whitespace-line-column 120) ;; limit line length
-(setq whitespace-style '(face lines-tail))
+(setq whitespace-style '(face))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
 ;; Python
@@ -146,7 +147,7 @@
       "add debug code and move line down"  
     (interactive)  
     (move-beginning-of-line 1)  
-    (insert "import ipdb; ipdb.set_trace()\n"))
+    (insert "import pdb; pdb.set_trace()\n"))
 
 (global-set-key (kbd "<f9>") 'add-py-debug)
 
@@ -284,7 +285,6 @@
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
-<<<<<<< HEAD
 
 ;; Ruby mode
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
