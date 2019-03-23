@@ -41,7 +41,8 @@
                           'yaml-mode
                           'ruby-mode
                           'lua-mode
-                          'markdown-mode)
+                          'markdown-mode
+                          'fill-column-indicator)
 
 ;; activate installed packages
 (package-initialize)
@@ -59,6 +60,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(horizontal-scroll-bar-mode -1)
 
 ;; Show column numbers
 (setq column-number-mode t)
@@ -294,3 +296,7 @@
 
 ;; Go mode
 (require 'go-mode)
+
+
+(require 'fill-column-indicator)
+
