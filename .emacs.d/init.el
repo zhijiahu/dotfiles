@@ -42,10 +42,13 @@
                           'ruby-mode
                           'lua-mode
                           'markdown-mode
-                          'fill-column-indicator)
+                          'dockerfile-mode)
 
 ;; activate installed packages
 (package-initialize)
+
+;; Default directories
+(setq default-directory (concat (getenv "HOME") "/"))
 
 ;; Load theme
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -60,7 +63,6 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(horizontal-scroll-bar-mode -1)
 
 ;; Show column numbers
 (setq column-number-mode t)
@@ -81,9 +83,6 @@
 
 ;; Confirm before quiting
 (setq confirm-kill-emacs 'y-or-n-p)
-
-;; Default directories
-(setq default-directory (concat (getenv "HOME") "/"))
 
 ;; Scroll settings
 (global-set-key "\M-n"  (lambda () (interactive) (scroll-up   4)) )
@@ -128,6 +127,8 @@
 (require 'flycheck)
 (global-flycheck-mode)
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+
 
 ;; Smex
 (require 'smex)
@@ -185,12 +186,13 @@
       helm-imenu-fuzzy-match    t)
 
 ;; Projectile settings
+(helm-projectile-on)
 (setq projectile-indexing-method 'alien)
 (setq projectile-enable-caching t)
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
-(helm-projectile-on)
 (setq projectile-enable-idle-timer t)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; Use MingGW libraries if running on Windows
 (if (eq system-type 'windows-nt)
@@ -297,6 +299,6 @@
 ;; Go mode
 (require 'go-mode)
 
-
-(require 'fill-column-indicator)
+(require 'dockerfile-mode)
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
 
