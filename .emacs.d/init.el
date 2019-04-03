@@ -32,6 +32,9 @@
                           'js2-mode
                           'web-beautify
                           'auto-complete
+                          'company
+                          'irony
+                          'rtags
                           'anzu
                           'flycheck
                           'smex
@@ -129,7 +132,6 @@
 (setq flycheck-check-syntax-automatically '(mode-enabled save))
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
-
 ;; Smex
 (require 'smex)
 (global-set-key (kbd "M-x") 'smex)
@@ -153,21 +155,6 @@
     (insert "import pdb; pdb.set_trace()\n"))
 
 (global-set-key (kbd "<f9>") 'add-py-debug)
-
-(defun remove-py-debug ()  
-  "remove py debug code, if found"  
-  (interactive)  
-  (let ((x (line-number-at-pos))  
-    (cur (point)))  
-    (search-forward-regexp "^[ ]*import ipdb; ipdb.set_trace();")  
-    (if (= x (line-number-at-pos))  
-    (let ()  
-      (move-beginning-of-line 1)  
-      (kill-line 1)  
-      (move-beginning-of-line 1))  
-      (goto-char cur))))  
-
-(global-set-key (kbd "M-<f9>") 'remove-py-debug)
 
 ;; Super + uppercase letter signifies a buffer/file
 (global-set-key (kbd "C-c s")                       ;; scratch
@@ -193,11 +180,6 @@
 (setq projectile-completion-system 'helm)
 (setq projectile-enable-idle-timer t)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
-;; Use MingGW libraries if running on Windows
-(if (eq system-type 'windows-nt)
-    (setenv "PATH"
-            (concat "C:\\MinGW\\msys\\1.0\\bin;" (getenv "PATH"))))
 
 ;; Toogle header/implementation file
 (global-set-key (kbd "C-c o") 'ff-find-other-file)
@@ -256,21 +238,6 @@
 (global-anzu-mode +1)
 (global-set-key (kbd "M-%") 'anzu-query-replace)
 (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
-
-;; Irony mode (for C++)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(setq w32-pipe-read-delay 0)
-;; replace the `completion-at-point' and `complete-symbol' bindings in
-;; irony-mode's buffers by irony-mode's function
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async))
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 ;; Web browsing
 (global-set-key (kbd "C-x C-o") 'browse-url-at-point)
