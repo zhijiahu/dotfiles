@@ -10,7 +10,7 @@
   (package-initialize))
 
 (defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
+  "Assure every package is installed.
    
    Return a list of installed packages or nil for every skipped package."
   (mapcar
@@ -21,23 +21,14 @@
        (package-install package)))
    packages))
 
-;; make sure to have downloaded archive description.
-;; Or use package-archive-contents as suggested by Nicolas Dudebout
-(or (file-exists-p package-user-dir)
-    (package-refresh-contents))
-
 (ensure-package-installed 'monokai-theme
                           'magit
                           'helm-projectile
-                          'js2-mode
-                          'web-beautify
+                          'smex
                           'auto-complete
-                          'company
-                          'irony
                           'rtags
                           'anzu
                           'flycheck
-                          'smex
                           'rust-mode
                           'arduino-mode
                           'web-mode
@@ -153,7 +144,6 @@
     (interactive)  
     (move-beginning-of-line 1)  
     (insert "import pdb; pdb.set_trace()\n"))
-
 (global-set-key (kbd "<f9>") 'add-py-debug)
 
 ;; Super + uppercase letter signifies a buffer/file
@@ -184,38 +174,8 @@
 ;; Toogle header/implementation file
 (global-set-key (kbd "C-c o") 'ff-find-other-file)
 
-;; js2 settings
-(js2-imenu-extras-mode)
-
-;; Web beautify :)
-(eval-after-load 'js2-mode
-  '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
-;; Or if you're using 'js-mode' (a.k.a 'javascript-mode')
-(eval-after-load 'js
-  '(define-key js-mode-map (kbd "C-c b") 'web-beautify-js))
-
-(eval-after-load 'json-mode
-  '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
-
-(eval-after-load 'sgml-mode
-  '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
-
-(eval-after-load 'css-mode
-  '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
-
 (setq c-default-style "bsd"
   c-basic-offset 4)
-
-;; ERC settings (IRC)
-(require 'erc)
-(erc-autojoin-mode t)
-(erc-track-mode 1)
-(setq erc-autojoin-channels-alist
-      '((".*\\.freenode.net" "#emacs" "#python" "##networking")))
-(setq erc-nick "aijihz") 
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                 "324" "329" "332" "333" "353" "477"))
-(setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
 
 ;; Org mode
 (global-set-key "\C-cl" 'org-store-link)
@@ -253,7 +213,6 @@
 ;; Grep
 (setq grep-command "grep -nH -r ")
 
-
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
 
@@ -268,4 +227,3 @@
 
 (require 'dockerfile-mode)
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode))
-
